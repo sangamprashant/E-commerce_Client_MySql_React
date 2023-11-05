@@ -22,7 +22,7 @@ function Navbarcomponent() {
             <Link to="/our-story" className="navlink">
               Our Story
             </Link>
-            <Link to="/our-products" className="navlink">
+            <Link to="/products" className="navlink">
               Our Products
             </Link>
             <Link to="/opportunities" className="navlink">
@@ -41,16 +41,30 @@ function Navbarcomponent() {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                list="searchId"
               />
-              <Button variant="outline-success" className="btn-search">
+              <datalist id="searchId">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </datalist>
+              {/* <Button variant="outline-success" className="btn-search">
                 Search
-              </Button>
+              </Button> */}
             </InputGroup>
           </Form>
           <ButtonGroup className="my-2 mx-lg-2">
+            <Link to="/login" className="navlink rounded-circle">
+              <User height="40" width="40" stroke="red" />
+            </Link>
             <Link to="/account" className="navlink rounded-circle">
               <User height="40" width="40" stroke="green" />
-              <sup className="bg-danger text-white py-1 px-2 rounded-circle">10</sup>
+              <sup className="bg-danger text-white py-1 px-2 rounded-circle">
+                10
+              </sup>
             </Link>
           </ButtonGroup>
         </Navbar.Collapse>

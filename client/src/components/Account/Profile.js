@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 function Profile() {
   return (
-    <div className="container h-80-profile d-flex align-items-center justify-content-center">
+    <div className="background-image">
+<div className="container h-80-profile d-flex align-items-center justify-content-center">
       <div className="card profile-card">
         <div className="row">
           <div className="col-md-4 bg-success">
@@ -97,6 +98,8 @@ function Profile() {
         </div>
       </div>
     </div>
+    </div>
+    
   );
 }
 
