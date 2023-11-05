@@ -107,12 +107,12 @@ const Title = styled.h1`
 `;
 
 const ProductTable = styled.div`
-  color: white;
+  color: blace;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #e2e2e261;
+  background-color: #eee;
   span {
     color: green;
   }
@@ -122,7 +122,7 @@ const ProductTable = styled.div`
   }
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   &:hover {
-    background-color: #e2e2e285;
+    background-color: #aaa;
   }
 `;
 

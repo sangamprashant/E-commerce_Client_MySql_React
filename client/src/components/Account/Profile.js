@@ -7,7 +7,7 @@ function Profile() {
   return (
     <div className="background-image">
 <div className="container h-80-profile d-flex align-items-center justify-content-center">
-      <div className="card profile-card">
+      <div className="card profile-card" style={{background:'#ffffff78'}}>
         <div className="row">
           <div className="col-md-4 bg-success">
             <div className="profile-image">
@@ -22,7 +22,7 @@ function Profile() {
               <Edit height="50" width="50" stroke="white" />
             </div>
           </div>
-          <div className="col-md-8">
+          <div className="col-md-8 ">
             <div className="profile-details">
               <h3>Information</h3>
               <div className="row">
