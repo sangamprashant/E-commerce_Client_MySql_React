@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Cart, Login, Main, Navbarcomponent, OpenOrder, Order, OurProduct, PageNotFound, Profile, Register,
 } from "./components";
+import { ClientContext } from "./ClientContext";
 
 function App() {
+  
+  const [isLogged,setIsLogged] = useState(sessionStorage.getItem("token")?true:false)
+
+
   return (
-    <div>
+    <ClientContext.Provider value={{isLogged,setIsLogged}}>
       <BrowserRouter>
         <Navbarcomponent />
         <Routes>
@@ -23,7 +30,8 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
-    </div>
+      <ToastContainer theme="dark"/>
+    </ClientContext.Provider>
   );
 }
 

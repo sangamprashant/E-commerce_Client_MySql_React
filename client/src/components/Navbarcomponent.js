@@ -5,8 +5,12 @@ import { Link } from "react-router-dom";
 import { Form, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import "../assets/styles/Navbar.css";
 import { User } from "./Svgs";
+import { useContext } from "react";
+import { ClientContext } from "../ClientContext";
 
 function Navbarcomponent() {
+  const { isLogged, setIsLogged } = useContext(ClientContext);
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary fixed-top">
       <Container className="con">
@@ -57,15 +61,15 @@ function Navbarcomponent() {
             </InputGroup>
           </Form>
           <ButtonGroup className="my-2 mx-lg-2">
-            <Link to="/login" className="navlink rounded-circle">
+            {!isLogged?<Link to="/login" className="navlink rounded-circle">
               <User height="40" width="40" stroke="red" />
-            </Link>
+            </Link>:
             <Link to="/account" className="navlink rounded-circle">
               <User height="40" width="40" stroke="green" />
               <sup className="bg-danger text-white py-1 px-2 rounded-circle">
                 10
               </sup>
-            </Link>
+            </Link>}
           </ButtonGroup>
         </Navbar.Collapse>
       </Container>

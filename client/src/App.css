@@ -12,6 +12,10 @@ a {
 .h-full {
   height: 100vh;
 }
+
+.pointer-cursor{
+  cursor: pointer;
+}
 .navlink {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.2rem;
