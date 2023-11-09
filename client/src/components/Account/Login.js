@@ -1,9 +1,57 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Bag, Cart, Edit, Logout, User } from "../Svgs";
 import "./Profile.css"; // Create a separate CSS file for styling
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ClientContext } from "../../ClientContext";
+import { toast } from "react-toastify";
 
 function Login() {
+  const { isLogged, setIsLogged } = useContext(ClientContext);
+  const [inputForm, setInputForm] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const handleInputForm = (e) => {
+    const { name, value } = e.target;
+    setInputForm({ ...inputForm, [name]: value });
+  };
+
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+    if (!inputForm.email || !inputForm.password) {
+      toast.info("Please enter all fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/client/do/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(inputForm),
+        }
+      );
+      const data = await response.json();
+      if (response.status === 200) {
+        setIsLogged(true);
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("user", JSON.stringify(data.details));
+        toast.success(data.message);
+        navigate("/");
+      } else {
+        toast.info(data.message);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      toast.error("server error");
+    }
+  };
+
   return (
     <div className="background-image">
       <div className="container h-80-profile d-flex align-items-center justify-content-center text-white">
@@ -23,8 +71,10 @@ function Login() {
                 <div class="form-floating mb-3">
                   <input
                     type="email"
+                    name="email"
                     class="form-control"
                     id="floatingInput"
+                    onChange={handleInputForm}
                     placeholder="name@example.com"
                   />
                   <label for="floatingInput">Email address</label>
@@ -32,14 +82,20 @@ function Login() {
                 <div class="form-floating mb-3">
                   <input
                     type="password"
+                    name="password"
                     class="form-control"
                     id="floatingPassword"
                     placeholder="Password"
+                    onChange={handleInputForm}
                   />
                   <label for="floatingPassword">Password</label>
                 </div>
 
-                <button class="w-100 btn btn-lg btn-success mb-2" type="submit">
+                <button
+                  class="w-100 btn btn-lg btn-success mb-2"
+                  type="submit"
+                  onClick={handleRegistration}
+                >
                   Sign In
                 </button>
                 <Link>Forgot password?</Link>
@@ -50,48 +106,6 @@ function Login() {
               </form>
             </div>
           </div>
-          {false && (
-            <div class="row align-items-center g-lg-5 py-5">
-              <div class="col-md-5 mx-auto col-lg-5">
-                <form class="p-4 p-md-5 border rounded-3 bg-light">
-                  <div class="form-floating mb-3">
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="floatingInput"
-                      placeholder="name@example.com"
-                    />
-                    <label for="floatingInput">Email address</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="floatingPassword"
-                      placeholder="Password"
-                    />
-                    <label for="floatingPassword">Password</label>
-                  </div>
-
-                  <button
-                    class="w-100 btn btn-lg btn-success mb-2"
-                    type="submit"
-                  >
-                    Sign up
-                  </button>
-                  <Link>Forgot password?</Link>
-                  <hr class="my-4" />
-                  <small class="text-muted">
-                    By clicking Sign up, you agree to the terms of use.
-                  </small>
-                  <br />
-                  <small>
-                    New account? <Link>Register here.</Link>
-                  </small>
-                </form>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

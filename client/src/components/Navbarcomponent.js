@@ -9,7 +9,8 @@ import { useContext } from "react";
 import { ClientContext } from "../ClientContext";
 
 function Navbarcomponent() {
-  const { isLogged, setIsLogged } = useContext(ClientContext);
+  const { CartProducts, setCartProducts,isLogged, token, setOrders } =
+    useContext(ClientContext);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary fixed-top">
@@ -67,7 +68,7 @@ function Navbarcomponent() {
             <Link to="/account" className="navlink rounded-circle">
               <User height="40" width="40" stroke="green" />
               <sup className="bg-danger text-white py-1 px-2 rounded-circle">
-                10
+             { CartProducts.length}
               </sup>
             </Link>}
           </ButtonGroup>

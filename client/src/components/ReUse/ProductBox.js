@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ProductWrapper = styled.div`
+  cursor: pointer;
   padding: 10px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   background: url(${(props) => props.image}) no-repeat center/contain;
@@ -56,17 +57,19 @@ const ProductImage = styled.img`
   height: 100%;
 `;
 
-const ProductBox = ({ _id, title, description, price, image }) => {
+const ProductBox = ({ _id, title, description, price, images }) => {
+  const image = JSON.parse(images);
+  const navigate = useNavigate()
   return (
-    <ProductWrapper image={image}>
+    <ProductWrapper image={image[0]} onClick={()=>navigate(`/products/${_id}`)}>
       <Box>
         <div>
           <ProductImage />
         </div>
       </Box>
       <PriceRow>
-        <Price className="left-product w-100">gelks</Price>
-        <Price className="right-product w-100">gelks</Price>
+        <Price className="left-product w-100">{title}</Price>
+        <Price className="right-product w-100">₹{price}</Price>
       </PriceRow>
     </ProductWrapper>
   );

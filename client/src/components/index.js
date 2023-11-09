@@ -9,6 +9,7 @@ import Register from "./Account/Register";
 import Cart from "./Account/Cart";
 import OurProduct from "./OurProduct";
 import ProductBox from "./ReUse/ProductBox";
+import ProductOpen from "./ProductOpen";
 
 export {
   Navbarcomponent,
@@ -22,4 +23,5 @@ export {
   Cart,
   OurProduct,
   ProductBox,
+  ProductOpen,
 };

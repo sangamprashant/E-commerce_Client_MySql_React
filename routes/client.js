@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 require('dotenv').config();
 const nodemailer = require('nodemailer');
 const db = require('../db');
+const requireLogin = require('../middleware/requireLogin');
 const router = express.Router();
 
 
@@ -100,7 +101,7 @@ router.post('/api/create/user', async (req, res) => {
                       message: 'Signup successful',
                       token: token,
                       details: {
-                        id: results.insertId,
+                        _id: results.insertId,
                         email: email,
                         name: name,
                       },
@@ -137,7 +138,7 @@ router.post('/api/client/do/login', async (req, res) => {
               res.status(401).json({ message: 'Authentication failed' });
             } else {
               // Create a JWT token with the admin's ID as the payload
-              const token = jwt.sign({ adminId: results[0].id }, process.env.AUTH_SECRET);
+              const token = jwt.sign({ adminId: results[0]._id }, process.env.AUTH_SECRET);
               res.status(200).json({
                 message: 'Login successful',
                 token: token,
@@ -151,6 +152,26 @@ router.post('/api/client/do/login', async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Server error' });
     }
+  });
+
+  router.get("/api/user/data", requireLogin, (req, res) => {
+    const { _id } = req.user;
+    console.log(_id)
+    const query = 'SELECT * FROM clients WHERE _id = ?'; 
+    db.query(query, [_id], (error, results) => {
+      if (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ message: 'Server error' });
+      }
+  
+      if (results.length === 0) {
+        return res.status(404).json({ message: "Invalid user" });
+      }
+  
+      const user = results[0];
+      console.log(user)
+      return res.status(200).json({ user });
+    });
   });
 
   module.exports = router;

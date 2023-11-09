@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProductBox from "./ReUse/ProductBox";
 
@@ -41,47 +41,37 @@ const SkeletonProductBox = styled.div`
 `;
 
 function OurProduct() {
-  // Assuming your data is an array of products
-  const products = [
-    { id: 1, price:12, image: "https://th.bing.com/th?id=OIP.4siKIW3oZ4kEo0vkEVQ5hgHaLH&w=204&h=306&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2", name: "Product 1" },
-    { id: 2, price:12, image: "https://th.bing.com/th/id/OIP.c4MCiDFgSGLsR_7-4-j0PwHaEK?pid=ImgDet&w=1366&h=768&rs=1", name: "Product 2" },
-    { id: 2, price:12, image: "https://th.bing.com/th/id/OIP.c4MCiDFgSGLsR_7-4-j0PwHaEK?pid=ImgDet&w=1366&h=768&rs=1", name: "Product 2" },
-    { id: 3, price:12, image: "/logo192.png", name: "Product 3" },
-    // Add more products as needed
-  ];
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch product data when the component mounts
+    fetch("http://localhost:8000/api/products")
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching product data:", error);
+      });
+  }, []);
 
   return (
-    <div className="d-flex justify-content-center w-100 background-image" style={{ paddingTop: "140px", height:"100vh" }}>
-    <div className="our-product-container">
-
-    <ProductGrid>
-        {/* {isLoading
-          ? // Render the skeleton loading effect while loading
-            Array.from({ length: 3 }).map((_, index) => (
-              <SkeletonProductBox key={index} className="skeleton-loading" />
-            ))
-          : // Render actual product boxes once data is loaded
-            products.length > 0 &&
-            products.map((product) => <ProductBox {...product} />)
-        } */}
-        {products.map((product) => <ProductBox {...product} />)}
-      </ProductGrid>
-    </div>
-    {/* <div className="
-    
-    ">
-      {products.map((product) => (
-        <div key={product.id} className="card">
-     
-            <img src={product.image} alt={product.name} />
-            <div className="btn-container">
-              <button className="btn">Button 1</button>
-              <button className="btn">Button 2</button>
-            </div>
-          
-        </div>
-      ))}
-    </div> */}
+    <div className="d-flex justify-content-center w-100 background-image" style={{ paddingTop: "140px", height: "100vh" }}>
+      <div className="our-product-container">
+        <ProductGrid>
+          {isLoading
+            ? // Render the skeleton loading effect while loading
+              Array.from({ length: 3 }).map((_, index) => (
+                <SkeletonProductBox key={index} className="skeleton-loading" />
+              ))
+            : // Render actual product boxes once data is loaded
+              products.length > 0 &&
+              products.map((product) => <ProductBox key={product.id} {...product} />)
+          }
+        </ProductGrid>
+      </div>
     </div>
   );
 }
