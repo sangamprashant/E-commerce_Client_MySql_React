@@ -6,7 +6,7 @@ import { ClientContext } from "../../ClientContext";
 import { toast } from "react-toastify";
 
 function Login() {
-  const { isLogged, setIsLogged } = useContext(ClientContext);
+  const { isLogged, setIsLogged,setToken } = useContext(ClientContext);
   const [inputForm, setInputForm] = useState({
     email: "",
     password: "",
@@ -40,6 +40,7 @@ function Login() {
       if (response.status === 200) {
         setIsLogged(true);
         sessionStorage.setItem("token", data.token);
+        setToken(data.token)
         sessionStorage.setItem("user", JSON.stringify(data.details));
         toast.success(data.message);
         navigate("/");

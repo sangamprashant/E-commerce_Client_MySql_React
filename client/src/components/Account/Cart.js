@@ -117,7 +117,7 @@ function Cart() {
     if (name && email && city && postalCode && street && country && phone) {
       try {
         const response = await axios.post(
-          "/api/make/order",
+          "http://localhost:8000/api/make/order",
           {
             name,
             email,
@@ -169,6 +169,10 @@ function Cart() {
       fetchDetails();
     }
   };
+
+  const handelAddressInput = (e) => {
+    
+  }
   //check if the product is deleted
   const isPaymentDisabled = products.some((item) => item.isDeleted);
   return (
@@ -260,7 +264,7 @@ function Cart() {
               <div className="card p-4">
                 <h4>Order Information</h4>
                 <form>
-                  <input className="form-control my-2" placeholder="Name" />
+                  <input className="form-control my-2" placeholder="Name"  />
                   <input className="form-control my-2" placeholder="Email" />
                   <div className="row m-1 gap-1 justify-content-between">
                     <input
@@ -287,7 +291,7 @@ function Cart() {
                     placeholder="Street Address"
                   />
                   <input className="form-control my-2" placeholder="Country" />
-                  <button className="btn btn-success w-100 my-1">
+                  <button type="button" className="btn btn-success w-100 my-1" onClick={makeOrder}>
                     Cash on Delivery
                   </button>
                   <button className="btn btn-success w-100 my-1">
