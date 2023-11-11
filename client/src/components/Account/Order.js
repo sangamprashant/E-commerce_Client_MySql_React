@@ -180,7 +180,7 @@ function Order() {
     "packed",
     "shipping",
     "out to deliver",
-    "delivegreen",
+    "delivered",
     "canceled",
   ];
 
@@ -190,7 +190,7 @@ function Order() {
   };
   return (
     <div className="background-image overflow-scroll" style={{height:"100vh"}}>
-      <div className="container d-flex justify-content-center">
+      <div className="container cart d-flex justify-content-center">
         <>
           <MainContainer>
             <Title>

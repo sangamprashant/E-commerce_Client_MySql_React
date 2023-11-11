@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { ClientContext } from "../../ClientContext";
 
 const Article = styled.article`
 margin-top:100px;
@@ -10,8 +11,8 @@ margin-top:100px;
 `;
 
 const OpenOrder = () => {
-    // const { CartProducts, setCartProducts, token, Orders } =
-    // useContext(CartContext);
+  const { CartProducts, setCartProducts, isLogged, token, OrdersIds } =
+    useContext(ClientContext);
   const location = useLocation();
   const { orderDatas } = location.state;
   const navigate = useNavigate()
@@ -20,20 +21,20 @@ const OpenOrder = () => {
     try {
         // Send a PUT request to update the order status
         const response = await axios.put(
-          `/api/orders/update-status/${orderDatas._id}`,
+          `http://localhost:8000/api/orders/update-status/${orderDatas._id}`,
           {
             status: "canceled",
           },
           {
             headers: {
-              Authorization: "Bearer " + "token",
+              Authorization: "Bearer " + token,
             },
           }
         );
 
         if (response.status === 200) {
         //   toast.success(response.data.message);
-          navigate("/myorder")
+          navigate("/account/orders")
         }
       } catch (error) {
         // toast.error(error.response.data.message);

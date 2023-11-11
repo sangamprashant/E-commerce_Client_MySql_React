@@ -116,4 +116,24 @@ router.post("/api/order", requireLogin, (req, res) => {
     res.status(500).json({ message: "Failed to get orders" });
   }
 });
+// Define a PUT API endpoint to update the order status by orderId
+router.put("/api/orders/update-status/:orderId", requireLogin, (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    const query = 'UPDATE orders SET status = ? WHERE _id = ?';
+    db.query(query, [status, orderId], (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+      } else {
+        res.status(200).json({ message: 'Order status updated successfully' });
+      }
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 module.exports = router;
