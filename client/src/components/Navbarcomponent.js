@@ -67,9 +67,9 @@ function Navbarcomponent() {
             </Link>:
             <Link to="/account" className="navlink rounded-circle">
               <User height="40" width="40" stroke="green" />
-              <sup className="bg-danger text-white py-1 px-2 rounded-circle">
+              {CartProducts?.length>0&&<sup className="bg-danger text-white py-1 px-2 rounded-circle">
              { CartProducts.length}
-              </sup>
+              </sup>}
             </Link>}
           </ButtonGroup>
         </Navbar.Collapse>

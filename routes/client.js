@@ -156,7 +156,6 @@ router.post('/api/client/do/login', async (req, res) => {
 
   router.get("/api/user/data", requireLogin, (req, res) => {
     const { _id } = req.user;
-    console.log(_id)
     const query = 'SELECT * FROM clients WHERE _id = ?'; 
     db.query(query, [_id], (error, results) => {
       if (error) {

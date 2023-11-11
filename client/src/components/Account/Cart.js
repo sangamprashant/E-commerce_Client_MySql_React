@@ -34,7 +34,7 @@ function Cart() {
 
   const fetchDetails = () => {
     setError(null); // Clear any previous errors
-    if (CartProducts.length > 0) {
+    if (CartProducts && CartProducts?.length > 0) {
       axios
         .post(
           "http://localhost:8000/api/cart",
@@ -141,7 +141,7 @@ function Cart() {
           toast.success(response.data.message);
           setOrders((prev) => [...prev, response.data.order._id]);
           setCartProducts([]);
-          navigate("/myorder");
+          navigate("/account/orders");
         }
       } catch (error) {
         console.log(error);
@@ -170,9 +170,6 @@ function Cart() {
     }
   };
 
-  const handelAddressInput = (e) => {
-    
-  }
   //check if the product is deleted
   const isPaymentDisabled = products.some((item) => item.isDeleted);
   return (
@@ -181,7 +178,7 @@ function Cart() {
       style={{ paddingTop: "100px", height: "100vh" }}
     >
       <div className="cart">
-        {CartProducts.length > 0 ? (
+        {CartProducts && CartProducts?.length > 0 ? (
           <div className="row">
             <div className="col-md-7 w-full ">
               <div className="card rounded-3 p-4">
@@ -218,7 +215,7 @@ function Cart() {
                                 type="number"
                                 className="form-control"
                                 value={
-                                  CartProducts.filter(
+                                  CartProducts?.filter(
                                     (id) => id === product._id
                                   ).length
                                 }
@@ -241,7 +238,7 @@ function Cart() {
                           </td>
                           <td>
                             ₹
-                            {CartProducts.filter((id) => id === product._id)
+                            {CartProducts?.filter((id) => id === product._id)
                               .length * product.price}
                           </td>
                         </tr>
@@ -264,34 +261,63 @@ function Cart() {
               <div className="card p-4">
                 <h4>Order Information</h4>
                 <form>
-                  <input className="form-control my-2" placeholder="Name"  />
-                  <input className="form-control my-2" placeholder="Email" />
+                  <input
+                    className="form-control my-2"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <input
+                    className="form-control my-2"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <div className="row m-1 gap-1 justify-content-between">
                     <input
                       className="address-input form-control"
                       placeholder="Phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                     <input
                       className="address-input form-control"
                       placeholder="Alternate Phone"
+                      value={APhone}
+                      onChange={(e) => setAPhone(e.target.value)}
                     />
                   </div>
                   <div className="row m-1 gap-1 justify-content-between">
                     <input
                       className="address-input form-control"
                       placeholder="City"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
                     />
                     <input
                       className="address-input form-control"
                       placeholder="Postal Code"
+                      value={postalCode}
+                      onChange={(e) => setPostalCode(e.target.value)}
                     />
                   </div>
                   <input
                     className="form-control my-2"
+                    value={street}
+                    onChange={(e) => setStreet(e.target.value)}
                     placeholder="Street Address"
                   />
-                  <input className="form-control my-2" placeholder="Country" />
-                  <button type="button" className="btn btn-success w-100 my-1" onClick={makeOrder}>
+                  <input
+                    className="form-control my-2"
+                    placeholder="Country"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-success w-100 my-1"
+                    onClick={makeOrder}
+                  >
                     Cash on Delivery
                   </button>
                   <button className="btn btn-success w-100 my-1">

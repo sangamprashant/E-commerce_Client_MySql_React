@@ -33,9 +33,10 @@ function App() {
           Authorization: "Bearer " + token, // Set the Authorization header
         },
       })
-      if(response.status===200){
-        setCartProducts(JSON.parse(response.data.user?.carts?response.data.user?.carts:null))
-        setOrders(JSON.parse(response?.data?.user?.orders?response?.data?.user?.orders:null))
+      if (response.status === 200) {
+        // console.log(JSON.parse(response?.data?.user?.orders ? response?.data?.user?.orders : []))
+        setOrders(JSON.parse(response?.data?.user?.orders ? response?.data?.user?.orders : []));
+        setCartProducts(JSON.parse(response.data.user?.carts ? response.data.user?.carts : []));
       }
     } catch (error) {
       toast.error(error.response)
@@ -45,7 +46,7 @@ function App() {
 
 
   return (
-    <ClientContext.Provider value={{isLogged,setIsLogged,CartProducts,setCartProducts,Orders,setOrders,token,setToken}}>
+    <ClientContext.Provider value={{isLogged,setIsLogged,CartProducts,setCartProducts,OrdersIds:Orders,setOrders,token,setToken}}>
       <BrowserRouter>
         <Navbarcomponent />
         <Routes>

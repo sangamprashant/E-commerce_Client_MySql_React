@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
-// import { CartContext } from "../CartContext";
 
 const Article = styled.article`
 margin-top:100px;
@@ -42,12 +41,13 @@ const OpenOrder = () => {
   }
 
   return (
+    <div className="background-image overflow-scroll " style={{height:"100vh", }}>
   <div className="container">
-    <Article className="card rounded">
+    <Article className="card rounded " style={{backgroundColor:"#ffffff63"}}>
         <header className="card-header"> Order ID: {orderDatas._id} </header>
         <div className="card-body">
             <h6>Email: {orderDatas.email}</h6>
-            <article className="card">
+            <article className="card " style={{backgroundColor:"#ffffff63"}}>
                 <div className="card-body row">
                     <div className="col"> <strong>Estimated Delivery time:</strong> <br/>29 nov 2019 </div>
                     <div className="col"> <strong>Shipping Address:</strong> <br/> {orderDatas.street} | {orderDatas.city} | {orderDatas.postalCode}</div>
@@ -66,23 +66,25 @@ const OpenOrder = () => {
             </div>}
             <hr/>
             <ul className="row">
-                {orderDatas.line_items.map((order,index)=>(<li className="col-md-4" key={index}>
+                {JSON.parse(orderDatas.line_items).map((order,index)=>(<li className="col-md-4" key={index}>
                     <figure className="itemside mb-3">
-                        <div className="aside"><img src={order.price_data.product_data?.images[0]} className="img-sm border "/></div>
+                        <div className="aside"><img src={JSON.parse(order.price_data.product_data?.images)[0]} className="img-sm border "/></div>
                         <figcaption className="info align-self-center">
-                            <p className="title">{order?.price_data.product_data?.name} <br/> {order.quantity}</p> <span className="text-muted">₹{order?.price_data.unit_amount} </span>
+                            <strong className="title text-bold">{order?.price_data.product_data?.name} <br/> {order.quantity}</strong> <span className="text-muted">₹{order?.price_data.unit_amount} </span>
                         </figcaption>
                     </figure>
                 </li>))} 
             </ul>
             <hr/>
             <div className="d-flex justify-between items-center">
-            <Link to="/myorder" className="btn btn-warning" data-abc="true"> <i className="fa fa-chevron-left"></i> Back to orders</Link>
-            <p >Order Amount: ₹{orderDatas.total}</p>
+            <Link to="/account/orders" className="btn btn-warning" data-abc="true"> <i className="fa fa-chevron-left"></i> Back to orders</Link>
+            <strong >Order Amount: ₹{orderDatas.total}</strong>
             </div>
         </div>
     </Article>
 </div>
+    </div>
+
   
   )
 };

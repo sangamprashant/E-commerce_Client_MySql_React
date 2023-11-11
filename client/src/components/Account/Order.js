@@ -1,90 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Bag } from "../Svgs";
-
-const sampleOrders = [
-  {
-    _id: "12345",
-    email: "sampleemail@gmail.com",
-    street: "Sample Street",
-    city: "Sample City",
-    postalCode: "12345",
-    name: "Sample Name",
-    phone: "123-456-7890",
-    APhone: "987-654-3210",
-    status: "confirm", // Change this to different statuses for testing
-    total: 1234.56,
-    line_items: [
-      {
-        price_data: {
-          product_data: {
-            images: ["product_image_url"],
-            name: "Product 1",
-          },
-          unit_amount: 123.45,
-        },
-        quantity: 2,
-      },
-      {
-        price_data: {
-          product_data: {
-            images: ["product_image_url"],
-            name: "Product 2",
-          },
-          unit_amount: 67.89,
-        },
-        quantity: 3,
-      },
-      // Add more line items as needed
-    ],
-  },
-  {
-    _id: "1",
-    status: "confirm",
-    total: 500,
-    line_items: [
-      {
-        price_data: {
-          product_data: {
-            name: "Product 1",
-            images: ["/logo192.png", "/logo192.png"],
-          },
-        },
-        quantity: 2,
-      },
-      {
-        price_data: {
-          product_data: {
-            name: "Product 1",
-            images: ["/logo192.png"],
-          },
-        },
-        quantity: 2,
-      },
-      // Add more items
-    ],
-  },
-  {
-    _id: "2",
-    status: "packing",
-    total: 300,
-    line_items: [
-      {
-        price_data: {
-          product_data: {
-            name: "Product 2",
-            images: ["/logo192.png"],
-          },
-        },
-        quantity: 1,
-      },
-      // Add more items
-    ],
-  },
-  // Add more orders
-];
+import { toast } from "react-toastify";
+import { ClientContext } from "../../ClientContext";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -112,7 +32,7 @@ const ProductTable = styled.div`
   margin-bottom: 20px;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #eee;
+  background-color: #ffffff63;
   span {
     color: green;
   }
@@ -122,7 +42,7 @@ const ProductTable = styled.div`
   }
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
   &:hover {
-    background-color: #aaa;
+    background-color: #ffffff82;
   }
 `;
 
@@ -199,19 +119,48 @@ const SkeletonLoader = styled.div`
 `;
 
 function Order() {
-  const [orders, setOrders] = useState(sampleOrders);
+  const { CartProducts, setCartProducts, isLogged, token, OrdersIds } =
+    useContext(ClientContext);
+  const [orders, setOrders] = useState([]);
   const [filtegreenOrders, setFiltegreenOrders] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState("all");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
-    if (false) {
+    if (!token) {
       navigate("/signin");
     } else {
-      // fetchDetails();
+      if (OrdersIds.length > 0) {
+        setIsLoading(true);
+        fetchDetails();
+      } else {
+        setIsLoading(false);
+      }
     }
-  }, []);
+  }, [OrdersIds]);
+
+  const fetchDetails = () => {
+    console.log(OrdersIds);
+    axios
+      .post(
+        "http://localhost:8000/api/order",
+        { ids: OrdersIds },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((response) => {
+        setOrders(response.data.reverse());
+        // console.log(JSON.parse(response.data[0].line_items));
+        setIsLoading(false); // Set loading to false once data is fetched
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data.message);
+      });
+  };
 
   useEffect(() => {
     if (selectedStatus === "all") {
@@ -222,9 +171,7 @@ function Order() {
       );
       setFiltegreenOrders(filtegreen);
     }
-    setOrders(sampleOrders);
-    setFiltegreenOrders(sampleOrders);
-    setIsLoading(false);
+    // setFiltegreenOrders(sampleOrders);
   }, [selectedStatus, orders]);
 
   const orderStatusOptions = [
@@ -242,7 +189,7 @@ function Order() {
     return orders.filter((order) => order.status === status).length;
   };
   return (
-    <div className="background-image">
+    <div className="background-image overflow-scroll" style={{height:"100vh"}}>
       <div className="container d-flex justify-content-center">
         <>
           <MainContainer>
@@ -285,10 +232,10 @@ function Order() {
                     })
                   }
                 >
-                  {order.line_items.map((item, key) => (
+                  {JSON.parse(order.line_items).map((item, key) => (
                     <TableRow key={key}>
                       <img
-                        src={item.price_data.product_data.images[0]}
+                        src={JSON.parse(item.price_data.product_data.images)[0]}
                         alt="Product"
                       />
                       <div>

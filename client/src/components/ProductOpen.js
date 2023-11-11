@@ -66,7 +66,13 @@ const ProductOpen = () => {
 
       if (response.status === 200) {
         toast.success(response.data.message);
-        setCartProducts((prev) => [...prev, product._id]);
+        setCartProducts((prev) => {
+          // Ensure prev is an array before using the spread operator
+          if (!Array.isArray(prev)) {
+            return [product._id];
+          }
+          return [...prev, product._id];
+        });
       }
     } catch (error) {
       // Handle errors here
