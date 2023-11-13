@@ -14,8 +14,13 @@ const OpenOrder = () => {
   const { CartProducts, setCartProducts, isLogged, token, OrdersIds } =
     useContext(ClientContext);
   const location = useLocation();
-  const { orderDatas } = location.state;
+  const { orderDatas } = location?.state;
   const navigate = useNavigate()
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, [CartProducts]);
 
   const handelCancel = async () => {
     try {
@@ -48,7 +53,7 @@ const OpenOrder = () => {
         <header className="card-header"> Order ID: {orderDatas._id} </header>
         <div className="card-body">
             <h6>Email: {orderDatas.email}</h6>
-            <article className="card " style={{backgroundColor:"#ffffff63"}}>
+            <article className="card " style={{backgroundColor:"#ffffff20"}}>
                 <div className="card-body row">
                     <div className="col"> <strong>Estimated Delivery time:</strong> <br/>29 nov 2019 </div>
                     <div className="col"> <strong>Shipping Address:</strong> <br/> {orderDatas.street} | {orderDatas.city} | {orderDatas.postalCode}</div>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClientContext } from "../../ClientContext";
 import { toast } from "react-toastify";
@@ -16,6 +16,12 @@ function Register() {
     password: "",
   });
   const [resendAttempts, setResendAttempts] = useState(0);
+
+  useEffect(()=>{
+    if(isLogged){
+    navigate("/")
+    }
+  },[])
 
   function handleInput(e, index) {
     const { value } = e.target;

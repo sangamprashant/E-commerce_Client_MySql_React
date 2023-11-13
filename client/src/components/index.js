@@ -13,6 +13,7 @@ import ProductOpen from "./ProductOpen";
 import OurStory from "./OurStory";
 import ContactUs from "./ContactUs";
 import Opportunities from "./Opportunities";
+import ProfileEdit from "./Account/ProfileEdit";
 
 export {
   Navbarcomponent,
@@ -30,4 +31,5 @@ export {
   OurStory,
   ContactUs,
   Opportunities,
+  ProfileEdit,
 };

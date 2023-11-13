@@ -26,7 +26,7 @@ function Cart() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/signin");
+      navigate("/");
     } else {
       fetchDetails();
     }

@@ -128,7 +128,7 @@ function Order() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     if (!token) {
-      navigate("/signin");
+      navigate("/");
     } else {
       if (OrdersIds.length > 0) {
         setIsLoading(true);

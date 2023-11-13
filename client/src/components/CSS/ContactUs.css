@@ -1,13 +1,13 @@
-.contact{
-    display: flex;
-    height: 100%;
-align-items: center;
-margin: 0;
-padding: 0;
+.contact {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.contact-request{
-    color: #530050;
+.contact-request {
+  color: #530050;
 }
 
 .contact-input {
@@ -25,16 +25,16 @@ padding: 0;
   box-sizing: none;
 }
 
-.contact-button{
-    border: none;
-    background-color: transparent;
-    color: #530050;
-    padding: 5px;
+.contact-button {
+  border: none;
+  background-color: transparent;
+  color: #530050;
+  padding: 5px;
 }
 .contact-detail {
-    text-align: right;
+  text-align: right;
 }
 
 .contact-detail .text-small {
-    font-size: 12px;
+  font-size: 12px;
 }

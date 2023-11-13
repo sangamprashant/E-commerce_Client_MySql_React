@@ -13,10 +13,10 @@ router.post("/api/contact", async (req, res) => {
 
     // Save the contact form data to your database (you can adjust this based on your database schema)
     const saveContactQuery =
-      "INSERT INTO contacts (name, email, phone, country, message) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO contacts (name, email, phone, country, message,responsed) VALUES (?, ?, ?, ?, ?, ?)";
     db.query(
       saveContactQuery,
-      [fullName, email, phone, country, message],
+      [fullName, email, phone, country, message, 0],
       (dbError, dbResults) => {
         if (dbError) {
           console.error(

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Bag, Cart, Edit, Logout, User } from "../Svgs";
 import "./Profile.css"; // Create a separate CSS file for styling
 import { Link, useNavigate } from "react-router-dom";
@@ -12,6 +12,12 @@ function Login() {
     password: "",
   });
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(isLogged){
+    navigate("/")
+    }
+  },[])
 
   const handleInputForm = (e) => {
     const { name, value } = e.target;

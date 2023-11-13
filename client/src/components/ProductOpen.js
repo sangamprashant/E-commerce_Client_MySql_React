@@ -12,7 +12,6 @@ const ProductOpen = () => {
   const [error, setError] = useState(null);
   const [isInCart, setIsInCart] = useState(false);
 
-
   const { CartProducts, setCartProducts, isLogged, token } =
     useContext(ClientContext);
 
@@ -22,14 +21,14 @@ const ProductOpen = () => {
     handleFetch();
   }, [id]);
 
-    useEffect(() => {
-      // Check if the product is in the cart
-      if (CartProducts?.includes(product._id)) {
-        setIsInCart(true);
-      } else {
-        setIsInCart(false);
-      }
-    }, [CartProducts, product]);
+  useEffect(() => {
+    // Check if the product is in the cart
+    if (CartProducts?.includes(product._id)) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+  }, [CartProducts, product]);
 
   async function handleFetch() {
     try {
@@ -51,8 +50,6 @@ const ProductOpen = () => {
   };
 
   async function addFeatureProductToCart() {
-    // setCartProducts((prev) => [...prev, product._id]);
-
     try {
       const response = await axios.post(
         "http://localhost:8000/api/add/to/cart",
@@ -81,70 +78,7 @@ const ProductOpen = () => {
     }
   }
 
-
   return (
-    // <div>
-    //   <section className="text-gray-600 body-font overflow-hidden">
-    //     <div className="container px-5 py-24 mx-auto flex flex-wrap">
-    //       <div className="w-full lg:w-1/2 lg:h-auto">
-    //         <img
-    //           alt="Product"
-    //           className="w-full h-90 object-contain object-center rounded Product_image"
-    //           src={product.images && product.images[selectedImageIndex]}
-    //         />
-    //         <div className="mt-4">
-    //           <div className="flex overflow-x-auto">
-    //             {product.images &&
-    //               JSON.parse(product.images).map((image, index) => (
-    //                 <img
-    //                   key={index}
-    //                   alt="Product Thumbnail"
-    //                   className={`cursor-pointer w-20 h-20 object-cover object-center rounded mx-1 ${
-    //                     index === selectedImageIndex ? 'border-2 border-indigo-500' : ''
-    //                   }`}
-    //                   src={image}
-    //                   onClick={() => handleImageClick(index)}
-    //                 />
-    //               ))}
-    //           </div>
-    //         </div>
-    //       </div>
-
-    //       <div className="w-full lg:w-1/2 lg:pl-10 lg:py-6 mb-6 lg:mb-0 flex flex-col">
-    //         <h2 className="text-sm title-font text-gray-500 tracking-widest">{product?.category?.name}</h2>
-    //         <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">{product.title}</h1>
-    //         <p className="leading-relaxed mb-4">{product.description}</p>
-    //         {product &&
-    //           product?.properties &&
-    //           Object.entries(product?.properties).map(([propertyName, propertyValue]) => (
-    //             <div key={propertyName} className="flex border-t border-gray-200 py-2">
-    //               <span className="text-gray-500">{propertyName}</span>
-    //               <span className="ml-auto text-gray-900">{propertyValue}</span>
-    //             </div>
-    //           ))}
-    //         <div className="flex mt-auto">
-    //           <span className="title-font font-medium text-2xl text-gray-900">₹{product.price}</span>
-    //           {logged && !isInCart && (
-    //             <button
-    //               className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-    //               onClick={addFeatureProductToCart}
-    //             >
-    //               <Cart  /> Add to cart
-    //             </button>
-    //           )}
-    //           {isInCart && (
-    //             <Link
-    //               to="/cart" // You can set the link to the cart page
-    //               className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-    //             >
-    //               Go to Cart
-    //             </Link>
-    //           )}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </section>
-    // </div>
     <div
       class=" background-image overflow-scroll"
       style={{ paddingTop: "100px", height: "100vh" }}
@@ -153,14 +87,17 @@ const ProductOpen = () => {
         <div class="row">
           <div class="col-md-5">
             <div class="main-img">
-              <img
-                class="img-fluid"
-                src={
-                  product?.images &&
-                  JSON.parse(product?.images)[selectedImageIndex]
-                }
-                alt="ProductS"
-              />
+              <div className="d-flex justify-content-center">
+                <img
+                  class="img-fluid product-open-container"
+                  src={
+                    product?.images &&
+                    JSON.parse(product?.images)[selectedImageIndex]
+                  }
+                  alt="ProductS"
+                />
+              </div>
+
               <div class="row my-3 previews">
                 {product.images &&
                   JSON.parse(product.images).map((image, index) => (
@@ -168,7 +105,7 @@ const ProductOpen = () => {
                       <img
                         src={image}
                         alt="Sale"
-                        className={`cursor-pointer w-100  object-cover object-center rounded mx-1 ${
+                        className={`cursor-pointer w-100  product-open-option   object-center rounded mx-1 ${
                           index === selectedImageIndex
                             ? "border border-primary"
                             : ""
@@ -202,14 +139,22 @@ const ProductOpen = () => {
               </div>
               {isLogged && (
                 <div class="buttons d-flex my-5 gap-2">
-                  {!isInCart?<div class="block">
-                    <button class="shadow btn btn-primary"  onClick={addFeatureProductToCart}>Add to cart</button>
-                  </div>:
-                  <div class="block">
-                    <Link to="/account/cart" class="shadow btn btn-success">
-                      Go to cart
-                    </Link>
-                  </div>}
+                  {!isInCart ? (
+                    <div class="block">
+                      <button
+                        class="shadow btn btn-primary"
+                        onClick={addFeatureProductToCart}
+                      >
+                        Add to cart
+                      </button>
+                    </div>
+                  ) : (
+                    <div class="block">
+                      <Link to="/account/cart" class="shadow btn btn-success">
+                        Go to cart
+                      </Link>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

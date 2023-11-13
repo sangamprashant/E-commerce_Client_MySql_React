@@ -1,92 +1,103 @@
 import React from "react";
-import storyStyle from "./CSS/OURSTORY.module.css";
+import "./CSS/Opportunities.css";
+import opp from "./Images/story.png";
+
 function OurStory() {
   return (
     <div
       className="background-image overflow-scroll"
-      style={{ height: "100vh", paddingTop: "100px" }}
+      style={{ paddingTop: "100px", height: "100vh" }}
     >
-      <div class={`${storyStyle.box}`}>
-        <div class={`${storyStyle.curve}`}></div>
+      <div className="row p-0">
+        <div className="col-md-7 bg-white p-4">
+          <div
+            className="p-4 text-white"
+            style={{ backgroundColor: "#530050" }}
+          >
+            <small className="Opportunities-text">
+              <p>
+                Once upon a time in the breathtaking tea country of India a
+                vision based on intent was born. An individual, who grew
+                passionate for tea and its effects on the mind, body and soul
+                brought together a shared purpose of bringing the authentic
+                essence of tea to every household across India. Thus, began the
+                journey of our premium, hand-picked consumer tea brand, Dirasz.
+              </p>
 
-        <div id={`${storyStyle.container}`}>
-          <h1>Prashant Srivastav</h1>
-          <p>
-            Also known as sangamprashant, Prashant Srivastav is an accomplished
-            software developer hailing from the vibrant city of Lucknow. He goes
-            by the pronouns "he/him" and has made quite a name for himself in
-            the world of technology and development. Prashant is a passionate
-            and dedicated individual who strives to craft robust web and mobile
-            applications. Let's delve a little deeper into his background and
-            achievements.
-          </p>
+              <p>
+                Our brand with its deep roots in Indian culture and heritage is
+                dedicated to providing the finest tea experience to tea lovers
+                of every kind. From the connoisseurs who seek the perfect brew
+                to those who simply enjoy a comforting cup of milk tea. Just
+                like we love it here in India. We cater to all tastes and
+                preferences.
+              </p>
 
-          <h2>About Me</h2>
-          <p>
-            Prashant's journey in web development began in 2022, and since then,
-            he has been on a relentless quest for knowledge and mastery of his
-            craft. He is currently honing his skills in Next.js, a popular React
-            framework, showcasing his commitment to staying updated with the
-            latest technologies. His ultimate goal is to become a proficient web
-            developer, which is a testament to his dedication and ambition in
-            the field.
-          </p>
+              <p>
+                At the heart of our brand lies a commitment to quality, of the
+                product, of packaging and also of the whole experience from
+                buying to consum- ing our Teas. We meticulously select the
+                freshest tea leaves from the abundant tea gardens nestled in the
+                verdant landscapes of India. Through our relationship with local
+                gardens and tea estates we ensure sustainable cultivation
+                practices that not only nurture the environ- ment but also
+                contribute to the well-being of the tea-growing communities.
+              </p>
 
-          <h2>Skills</h2>
-          <p>
-            Prashant's skill set is truly impressive, encompassing a wide range
-            of technologies and languages. He is well-versed in Java, React,
-            JavaScript, the MERN stack (MongoDB, Express, React, Node.js),
-            Android, PHP, HTML, and CSS. His toolbox also includes expertise in
-            HTML5, CSS3, Bootstrap, Tailwind CSS, JavaScript, React, Next.js,
-            Node.js, MongoDB, Firebase, Python, and Java. This extensive skill
-            set is a testament to his versatility and adaptability as a
-            developer.
-          </p>
+              <p>
+                Our highly skilled tea experts use traditional knowledge
+                combined with modern innovative techniques to create
+                unparalleled blends. Each tea variant is carefully crafted to
+                offer a symphony of flavors capturing the unique essence and
+                character of Indian tea. Whether it's the robust Assam tea the
+                fragrant Darjeeling tea the soothing infusion with every sip is
+                a journey through India's rich tea heritage. We believe that
+                brewing and enjoying a cup of tea is a sacred ritual. Therefore
+                we strive to provide a complete tea experience. Our packaging is
+                thoughtfully designed to preserve the aroma and freshness of the
+                tea leaves ensuring that every cup brewed is as delightful as
+                the first. With time and your support we also plan offer a range
+                of tea accessories from teapots to tea infusers to enhance the
+                brewing process and elevate your tea-drinking experience. But
+                our brand is not just about tea- it is about fostering
+                connections, moments of togetherness and sharing joy.
+              </p>
 
-          <h2>Languages</h2>
-          <p>
-            Prashant is not only proficient in various programming languages but
-            is also multilingual. He is highly skilled in both Hindi and
-            English, earning five stars for Hindi and four and a half stars for
-            English. This linguistic diversity allows him to connect with a
-            broader audience and collaborate effectively with people from
-            different linguistic backgrounds.
-          </p>
+              <p>
+                We envision our brand as a catalyst for conversations and
+                celebrations as tea has always been an integral part of India's
+                social fabric.
+              </p>
+              <p>
+                From family gatherings to chai breaks with friends, our tea aims
+                to create connections and forge cherished memories that last a
+                lifetime.
+              </p>
 
-          <h2>Social Links</h2>
-          <p>
-            Prashant is well-connected in the digital world, with links to his
-            various social media profiles. You can find him on YouTube,
-            Instagram, Gmail, and LinkedIn, where he likely shares his knowledge
-            and experiences with a wider community.
-          </p>
-
-          <h2>GitHub Profile</h2>
-          <p>
-            His GitHub profile showcases his active involvement in open-source
-            projects and personal repositories. Some of his popular repositories
-            include "demo.psm" (an HTML project), "sangam_prashant" (a personal
-            profile in CSS), "get.connect" (another HTML project), "Tic-Tac-Toe"
-            (a JavaScript-based game), "ManupulateText" (JavaScript), and
-            "NewsApp--Oh-MyNewsApp--Oh-My" (JavaScript). These projects reflect
-            his commitment to continuous learning and contribution to the
-            developer community.
-          </p>
-
-          <p>
-            Prashant Srivastav, with his rich skill set, dedication, and passion
-            for web development, is undoubtedly an emerging talent in the
-            software development world. He is on a journey to sharpen his
-            abilities and contribute significantly to the ever-evolving world of
-            technology. Keep an eye on his journey, as he's sure to achieve
-            remarkable milestones in the field of web and mobile application
-            development. You can learn more about him and his work on his
-            website:
-            <a href="https://www.academicqueries.me">academicqueries.me</a>.
-          </p>
+              <p>
+                {" "}
+                As a socially responsible brand we are committed to giving back
+                to society. We believe in promoting sustainable prac- tices,
+                uplifting farmer communities and ensuring that every cup of tea
+                fosters a positive impact on society and the environment.
+              </p>
+              <p>
+                With our passion for tea commitment to quality and dedication to
+                fostering connections we invite you to embark on a tea journey
+                like no other. Come indulge in the richness of Indian tea
+                heritage with our brand and let every sip awaken your senses and
+                soothe your soul. Experience the magic that lies in a cup of tea
+                and join us as we create moments of pure bliss one sip at a
+                time.
+              </p>
+            </small>
+          </div>
         </div>
-        
+        <div className="col-md-5">
+          <div className="bg-purple p-4">
+            <img width="100%" src={opp} alt="Opportunities image" />
+          </div>
+        </div>
       </div>
     </div>
   );

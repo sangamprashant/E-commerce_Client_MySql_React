@@ -1,16 +1,29 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import "../assets/styles/Navbar.css";
 import { User } from "./Svgs";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ClientContext } from "../ClientContext";
 
 function Navbarcomponent() {
-  const { CartProducts, setCartProducts,isLogged, token, setOrders } =
-    useContext(ClientContext);
+  const {
+    CartProducts,
+    products,
+    setCartProducts,
+    isLogged,
+    token,
+    setOrders,
+  } = useContext(ClientContext);
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+    navigate(`/products/${event.target.value}`);
+  };
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary fixed-top">
@@ -47,14 +60,14 @@ function Navbarcomponent() {
                 placeholder="Search"
                 aria-label="Search"
                 list="searchId"
+                value={searchValue}
+                onChange={handleSearchChange}
               />
               <datalist id="searchId">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
+                {products &&
+                  products.map((product) => (
+                    <option value={product._id}>{product.title}</option>
+                  ))}
               </datalist>
               {/* <Button variant="outline-success" className="btn-search">
                 Search
@@ -62,15 +75,20 @@ function Navbarcomponent() {
             </InputGroup>
           </Form>
           <ButtonGroup className="my-2 mx-lg-2">
-            {!isLogged?<Link to="/login" className="navlink rounded-circle">
-              <User height="40" width="40" stroke="red" />
-            </Link>:
-            <Link to="/account" className="navlink rounded-circle">
-              <User height="40" width="40" stroke="green" />
-              {CartProducts?.length>0&&<sup className="bg-danger text-white py-1 px-2 rounded-circle">
-             { CartProducts.length}
-              </sup>}
-            </Link>}
+            {!isLogged ? (
+              <Link to="/login" className="navlink rounded-circle">
+                <User height="40" width="40" stroke="red" />
+              </Link>
+            ) : (
+              <Link to="/account" className="navlink rounded-circle">
+                <User height="40" width="40" stroke="green" />
+                {CartProducts?.length > 0 && (
+                  <sup className="bg-danger text-white py-1 px-2 rounded-circle">
+                    {CartProducts.length}
+                  </sup>
+                )}
+              </Link>
+            )}
           </ButtonGroup>
         </Navbar.Collapse>
       </Container>

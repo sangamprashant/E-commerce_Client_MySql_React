@@ -168,9 +168,29 @@ router.post('/api/client/do/login', async (req, res) => {
       }
   
       const user = results[0];
-      console.log(user)
+      // console.log(user)
       return res.status(200).json({ user });
     });
   });
+
+  router.put('/api/update/user', requireLogin, async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { name, phone, address, city, image} = req.body;
+
+    const updateQuery = 'UPDATE clients SET name = ?, phone = ?, address = ?, city = ?, image = ? WHERE _id = ?';
+    db.query(updateQuery, [name, phone||null, address||null, city||null,image||null, _id], (error, results) => {
+      if (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        res.status(200).json({ message: 'User profile updated successfully',});
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
   module.exports = router;
