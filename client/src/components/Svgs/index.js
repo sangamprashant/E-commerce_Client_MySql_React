@@ -1,3 +1,4 @@
+import ArrowRight from "./ArrowRight"
 import Bag from "./Bag"
 import Cart from "./Cart"
 import Edit from "./Edit"
@@ -14,4 +15,5 @@ export {
     Bag,
     Minus,
     Plus,
+    ArrowRight,
 }

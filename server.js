@@ -13,7 +13,7 @@ app.use(cors());
 app.use(require('./routes/client'));
 app.use(require('./routes/cart'));
 // app.use(require('./routes/categories'));
-// app.use(require('./routes/contact'));
+app.use(require('./routes/contact'));
 app.use(require('./routes/order'));
 app.use(require('./routes/product'));
 // app.use(require('./routes/properties'));

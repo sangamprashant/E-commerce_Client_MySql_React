@@ -10,6 +10,9 @@ import Cart from "./Account/Cart";
 import OurProduct from "./OurProduct";
 import ProductBox from "./ReUse/ProductBox";
 import ProductOpen from "./ProductOpen";
+import OurStory from "./OurStory";
+import ContactUs from "./ContactUs";
+import Opportunities from "./Opportunities";
 
 export {
   Navbarcomponent,
@@ -24,4 +27,7 @@ export {
   OurProduct,
   ProductBox,
   ProductOpen,
+  OurStory,
+  ContactUs,
+  Opportunities,
 };
