@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Cart, ContactUs, Login, Main, Navbarcomponent, OpenOrder, Opportunities, Order, OurProduct, OurStory, PageNotFound, ProductOpen, Profile, ProfileEdit, Register,
+import { Cart, ContactUs, Footer, Login, Main, Navbarcomponent, OpenOrder, Opportunities, Order, OurProduct, OurStory, PageNotFound, ProductOpen, Profile, ProfileEdit, Register,
 } from "./components";
 import { ClientContext } from "./ClientContext";
 import axios from "axios";
@@ -76,6 +76,7 @@ function App() {
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
       <ToastContainer theme="dark"/>
     </ClientContext.Provider>

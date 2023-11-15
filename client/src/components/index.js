@@ -14,6 +14,7 @@ import OurStory from "./OurStory";
 import ContactUs from "./ContactUs";
 import Opportunities from "./Opportunities";
 import ProfileEdit from "./Account/ProfileEdit";
+import Footer from "./Footer";
 
 export {
   Navbarcomponent,
@@ -32,4 +33,5 @@ export {
   ContactUs,
   Opportunities,
   ProfileEdit,
+  Footer,
 };
